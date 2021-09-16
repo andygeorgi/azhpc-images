@@ -5,10 +5,10 @@ set -ex
 source ./set_properties.sh
 
 # install utils
-./install_utils.sh
+#./install_utils.sh
 
 # install compilers
-./install_gcc.sh
+#./install_gcc.sh
 
 # install mellanox ofed
 ./install_mellanoxofed.sh
