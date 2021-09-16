@@ -30,4 +30,5 @@ yum install -y numactl \
     libpciaccess \
     cmake \
     libnl3-devel \
-    libarchive
+    libarchive \
+    kernel-modules-extra
