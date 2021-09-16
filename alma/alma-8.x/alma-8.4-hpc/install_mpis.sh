@@ -22,6 +22,9 @@ tar -xvf ${TARBALL}
 mv ${HPCX_FOLDER} ${INSTALL_PREFIX}
 HPCX_PATH=${INSTALL_PREFIX}/${HPCX_FOLDER}
 
+# Unload kernel modules which prevent openibd from a restart
+rmmod rpcrdma ib_srpt ib_isert
+
 # Enable Sharpd
 ${HPCX_PATH}/sharp/sbin/sharp_daemons_setup.sh -s -d sharpd
 systemctl enable sharpd
