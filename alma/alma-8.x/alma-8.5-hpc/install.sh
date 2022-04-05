@@ -26,10 +26,10 @@ source ./set_properties.sh
 ./install_intel_libs.sh
 
 # add udev rule
-$COMMON_DIR/../centos/common/add-udev-rules.sh
+$COMMON_DIR/../alma/common/add-udev-rules.sh
 
 # add interface rules
-$COMMON_DIR/../centos/common/network-config.sh
+$COMMON_DIR/../alma/common/network-config.sh
 
 # optimizations
 ./hpc-tuning.sh
