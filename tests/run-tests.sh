@@ -68,6 +68,15 @@ CENTOS_MVAPICH2_PATH="/opt/mvapich2-${MVAPICH2_VERSION}"
 CENTOS_MVAPICH2X_PATH="${MVAPICH2X_INSTALLATION_DIRECTORY}/gnu9.2.0/mofed5.1/azure-xpmem/mpirun"
 CENTOS_OPENMPI_PATH="/opt/openmpi-${OMPI_VERSION}"
 
+ALMA_84_MOFED_VERSION="MLNX_OFED_LINUX-5.4-1.0.3.0"
+ALMA_84_HPCX_OMB_PATH="/opt/hpcx-v2.9.0-gcc-${ALMA_84_MOFED_VERSION}-redhat8.4-x86_64/ompi/tests/osu-micro-benchmarks-5.6.2"
+ALMA_MODULE_FILES_ROOT="/usr/share/Modules/modulefiles"
+ALMA_IMPI2021_PATH="/opt/intel/oneapi/mpi/${IMPI_2021_VERSION}"
+ALMA_MVAPICH2_PATH="/opt/mvapich2-${MVAPICH2_VERSION}"
+ALMA_MVAPICH2X_PATH="${MVAPICH2X_INSTALLATION_DIRECTORY}/gnu9.2.0/mofed5.1/azure-xpmem/mpirun"
+ALMA_OPENMPI_PATH="/opt/openmpi-${OMPI_VERSION}"
+
+UBUNTU_MOFED_VERSION="MLNX_OFED_LINUX-5.4-1.0.3.0"
 UBUNTU_MODULE_FILES_ROOT="/usr/share/modules/modulefiles"
 HPCX_OMB_PATH_UBUNTU_1804="/opt/hpcx-${HPCX_VERSION}-gcc-${HPCX_MOFED_INTEGRATION_VERSION}-ubuntu18.04-x86_64/ompi/tests/osu-micro-benchmarks-5.6.2"
 HPCX_OMB_PATH_UBUNTU_2004="/opt/hpcx-${HPCX_VERSION}-gcc-${HPCX_MOFED_INTEGRATION_VERSION}-ubuntu20.04-x86_64/ompi/tests/osu-micro-benchmarks-5.6.2"
@@ -99,6 +108,10 @@ find_distro() {
     then
         local ubuntu_distro=`find_ubuntu_distro`
         echo "${os} ${ubuntu_distro}"
+    elif [[ $os == "AlmaLinux" ]]
+    then
+        local alma_distro=`find_alma_distro`
+        echo "${os} ${alma_distro}"
     else
         echo "*** Error - invalid distro!"
         exit -1
@@ -113,6 +126,11 @@ find_centos_distro() {
 # Find Ubuntu distro
 find_ubuntu_distro() {
     echo `cat /etc/os-release | awk 'match($0, /^PRETTY_NAME="(.*)"/, result) { print result[1] }' | awk '{print $2}' | cut -d. -f1,2`
+}
+
+# Find CentOS distro
+find_alma_distro() {
+    echo `cat /etc/almalinux-release | awk '{print $3}'`
 }
 
 distro=`find_distro`
@@ -209,6 +227,20 @@ then
     MVAPICH2_PATH=${CENTOS_MVAPICH2_PATH}
     MVAPICH2X_PATH=${CENTOS_MVAPICH2X_PATH}
     OPENMPI_PATH=${CENTOS_OPENMPI_PATH}
+elif [[ $distro == "AlmaLinux 8.4" ]]
+then
+    HPCX_OMB_PATH=${ALMA_84_HPCX_OMB_PATH}
+    CHECK_HPCX=1
+    CHECK_IMPI_2021=1
+    CHECK_OMPI=1
+    CHECK_MVAPICH2=1
+    CHECK_MVAPICH2X=0
+    MODULE_FILES_ROOT=${ALMA_MODULE_FILES_ROOT}
+    MOFED_VERSION=${ALMA_84_MOFED_VERSION}
+    IMPI2021_PATH=${ALMA_IMPI2021_PATH}
+    MVAPICH2_PATH=${ALMA_MVAPICH2_PATH}
+    MVAPICH2X_PATH=${ALMA_MVAPICH2X_PATH}
+    OPENMPI_PATH=${ALMA_OPENMPI_PATH}
 elif [[ $distro == "Ubuntu 18.04" ]]
 then
     HPCX_OMB_PATH=${HPCX_OMB_PATH_UBUNTU_1804}
