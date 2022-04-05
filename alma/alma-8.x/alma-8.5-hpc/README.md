@@ -1,6 +1,6 @@
-# CentOS 8.3 HPC Image
+# Alma 8.5 HPC Image
 
-The CentOS 8.3 HPC Image includes optimizations and recommended configurations to deliver optimal performance,
+The Alma 8.5 HPC Image includes optimizations and recommended configurations to deliver optimal performance,
 consistency, and reliability. This image consists of the following HPC tools and libraries:
 
 - Mellanox OFED
