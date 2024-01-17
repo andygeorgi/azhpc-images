@@ -1,16 +1,16 @@
 #!/bin/bash
 set -ex
 
+# Install Kernel dependencies
+KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
+yum install -y kernel-devel-${KERNEL} kernel-headers-${KERNEL} kernel-modules-extra-${KERNEL}
+
 ## Disable kernel updates
 echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
 
 # Disable dependencies on kernel core
 sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
 sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
-
-# Install Kernel dependencies
-KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
-yum install -y kernel-devel-${KERNEL} kernel-headers-${KERNEL} kernel-modules-extra-${KERNEL}
 
 # Install pre-reqs and development tools
 yum group install -y "Development Tools"
