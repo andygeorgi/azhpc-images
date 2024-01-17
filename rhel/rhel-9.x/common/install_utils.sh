@@ -2,7 +2,7 @@
 set -ex
 
 # Install Kernel dependencies
-KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
+KERNEL=$(uname -r)
 yum install -y kernel-devel-${KERNEL} kernel-headers-${KERNEL} kernel-modules-extra-${KERNEL}
 
 # Install pre-reqs and development tools

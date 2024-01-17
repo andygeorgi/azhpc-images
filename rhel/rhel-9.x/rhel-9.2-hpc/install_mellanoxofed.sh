@@ -9,8 +9,7 @@ MOFED_FOLDER=$(basename ${MLNX_OFED_DOWNLOAD_URL} .tgz)
 $COMMON_DIR/download_and_verify.sh $MLNX_OFED_DOWNLOAD_URL "014a47af76ccf08c52c76fb708e45e5a49728695194f3745c7ee0fc8468d5caa"
 tar zxvf ${TARBALL}
 
-KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
-KERNEL=${KERNEL[-1]}
+KERNEL=$(uname -r)
 ./${MOFED_FOLDER}/mlnxofedinstall --kernel $KERNEL --kernel-sources /usr/src/kernels/${KERNEL} --add-kernel-support --skip-repo --skip-unsupported-devices-check --without-fw-update --distro rhel9.2
 
 # Issue: Module mlx5_ib belong to a kernel which is not a part of MLNX
