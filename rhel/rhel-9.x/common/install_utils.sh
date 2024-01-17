@@ -10,14 +10,9 @@ sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
 
 # Install Kernel dependencies
 KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
-#yum install -y https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-devel-${KERNEL}.rpm \
-#    https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-headers-${KERNEL}.rpm \
-#    https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-modules-extra-${KERNEL}.rpm
-
 yum install -y kernel-devel-${KERNEL} kernel-headers-${KERNEL} kernel-modules-extra-${KERNEL}
 
 # Install pre-reqs and development tools
-#yum groupinstall -y "Development Tools"
 yum group install -y "Development Tools"
 yum install -y numactl \
     numactl-devel \
@@ -53,34 +48,9 @@ yum install -y numactl \
     gcc-gfortran \
     perl
 
-
 # Enable EPEL repo for 3rd party packages and install pssh, dkms, subunit and jq
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 yum install -y pssh subunit subunit-devel jq
-
-# install pssh
-#PSSH_VER=2.3.4-1
-#wget https://dl.fedoraproject.org/pub/epel/9/Everything/aarch64/Packages/p/pssh-$PSSH_VER.el9.noarch.rpm
-#yum install -y  pssh-$PSSH_VER.el9.noarch.rpm
-#rm -f pssh-$PSSH_VER.el9.noarch.rpm
-
-
-## Install dkms from the EPEL repository
-#wget -r --no-parent -A "dkms-*.el9.noarch.rpm" https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/d/
-#yum localinstall ./dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/d/dkms-*.el9.noarch.rpm -y
-
-## Install subunit and subunit-devel from EPEL repository
-#wget -r --no-parent -A "subunit-*.el9.x86_64.rpm" https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/s/
-#yum localinstall ./dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/s/subunit-[0-9].*.el9.x86_64.rpm -y
-#yum localinstall ./dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/s/subunit-devel-[0-9].*.el9.x86_64.rpm -y
-
-# Download jq utility
-#wget -r --no-parent -A "jq-*.el9.x86_64.rpm" https://repo.almalinux.org/almalinux/9/AppStream/x86_64/os/Packages/
-#yum localinstall ./repo.almalinux.org/almalinux/9/AppStream/x86_64/os/Packages/jq-*.el9.x86_64.rpm -y
-
-# Remove rpm files
-#rm -rf ./dl.fedoraproject.org/
-#rm -rf ./repo.almalinux.org/
 
 # Install azcopy tool 
 # To copy blobs or files to or from a storage account.
