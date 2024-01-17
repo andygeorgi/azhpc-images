@@ -5,13 +5,6 @@ set -ex
 KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
 yum install -y kernel-devel-${KERNEL} kernel-headers-${KERNEL} kernel-modules-extra-${KERNEL}
 
-## Disable kernel updates
-echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
-
-# Disable dependencies on kernel core
-sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
-sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
-
 # Install pre-reqs and development tools
 yum group install -y "Development Tools"
 yum install -y numactl \
@@ -47,6 +40,13 @@ yum install -y numactl \
     tcsh \
     gcc-gfortran \
     perl
+
+## Disable kernel updates
+echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
+
+# Disable dependencies on kernel core
+sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
+sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
 
 # Enable EPEL repo for 3rd party packages and install pssh, dkms, subunit and jq
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
