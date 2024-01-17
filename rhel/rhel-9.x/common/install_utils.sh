@@ -41,16 +41,17 @@ yum install -y numactl \
     gcc-gfortran \
     perl
 
+
+# Enable EPEL repo for 3rd party packages and install pssh, dkms, subunit and jq
+yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+yum install -y pssh dkms subunit subunit-devel jq
+
 ## Disable kernel updates
 echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
 
 # Disable dependencies on kernel core
 sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
 sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
-
-# Enable EPEL repo for 3rd party packages and install pssh, dkms, subunit and jq
-yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-yum install -y pssh subunit subunit-devel jq
 
 # Install azcopy tool 
 # To copy blobs or files to or from a storage account.
