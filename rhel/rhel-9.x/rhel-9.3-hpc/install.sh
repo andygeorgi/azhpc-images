@@ -73,6 +73,15 @@ $RHEL_COMMON_DIR/disable_cloudinit.sh
 # SKU Customization
 $COMMON_DIR/setup_sku_customizations.sh
 
+# Hotfix for RHEL 9 until official CC support is released
+mv /bin/hostnamectl /bin/hostnamectl_org
+cat << "EOF" >>/bin/hostnamectl
+#!/bin/bash
+/bin/hostnamectl_org "$@" | grep -v -i "chassis"
+EOF
+ 
+chmod +x /bin/hostnamectl
+
 # clear history
 # Uncomment the line below if you are running this on a VM
 # $COMMON_DIR/clear_history.sh
