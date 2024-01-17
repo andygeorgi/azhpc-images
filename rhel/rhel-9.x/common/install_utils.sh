@@ -7,7 +7,7 @@ KERNEL=( $(rpm -q kernel | sed 's/kernel\-//g') )
 #    https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-headers-${KERNEL}.rpm \
 #    https://repo.almalinux.org/vault/8.7/BaseOS/x86_64/os/Packages/kernel-modules-extra-${KERNEL}.rpm
 
-yum install -y kernel-devel kernel-headers kernel-modules-extra
+yum install -y kernel-devel-${KERNEL} kernel-headers-${KERNEL} kernel-modules-extra-${KERNEL}
 
 # Install Python 3.8
 #yum install -y python3.8
@@ -58,11 +58,11 @@ yum install -y numactl \
     perl
 
 ## Disable kernel updates
-#echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
+echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
 
 # Disable dependencies on kernel core
-#sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
-#sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
+sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
+sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
 
 ## Install dkms from the EPEL repository
 wget -r --no-parent -A "dkms-*.el9.noarch.rpm" https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/d/
