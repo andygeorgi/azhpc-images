@@ -5,7 +5,7 @@ set -ex
 # $1 = the major version of the distro. "8" for RHEL/Alma8, "9" for RHEL/Alma9.
 
 DISTRIB_CODENAME="el$1"
-LUSTRE_VERSION=2.15.6-39-g3e00a10
+LUSTRE_VERSION=2.15.6_39_g3e00a10
 REPO_PATH=/etc/yum.repos.d/amlfs.repo
 
 rpm --import https://packages.microsoft.com/keys/microsoft.asc

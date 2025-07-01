@@ -8,7 +8,7 @@ source ./set_properties.sh
 ./install_utils.sh
 
 # install Lustre client
-$RHEL_COMMON_DIR/install_lustre_client.sh "9"
+install_lustre_client.sh "9"
 
 # install compilers
 ./install_gcc.sh
