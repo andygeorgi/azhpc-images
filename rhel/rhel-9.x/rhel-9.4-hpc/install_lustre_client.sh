@@ -17,7 +17,7 @@ echo -e "enabled=1" >> ${REPO_PATH}
 echo -e "gpgcheck=1" >> ${REPO_PATH}
 echo -e "gpgkey=https://packages.microsoft.com/keys/microsoft.asc" >> ${REPO_PATH}
 
-dnf install -y --disableexcludes=main --refresh amlfs-lustre-client-${LUSTRE_VERSION}-$(uname -r | sed -e "s/\.$(uname -p)$//" | sed -re 's/[-_]/\./g')-1
+dnf install -y --disableexcludes=main --refresh amlfs-lustre-client-${LUSTRE_VERSION}
 sed -i "$ s/$/ amlfs*/" /etc/dnf/dnf.conf
 
 $COMMON_DIR/write_component_version.sh "LUSTRE" ${LUSTRE_VERSION}
