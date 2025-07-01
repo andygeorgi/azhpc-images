@@ -1,24 +1,35 @@
 #!/bin/bash
 
+set -ex
 
-set -e
+source ${COMMON_DIR}/utilities.sh
 
-AZHC_VERSION=v0.2.6
+aznhc_metadata=$(get_component_config "aznhc")
+AZHC_VERSION=$(jq -r '.version' <<< $aznhc_metadata)
+AZHC_SHA=$(jq -r '.sha256' <<< $aznhc_metadata)
 
 DEST_TEST_DIR=/opt/azurehpc/test
-AZHC_DIR=/opt/azurehpc/test/azurehpc-health-checks
+GHR_SOURCE_DIR=$(realpath $COMMON_DIR)
+GPU_PLAT=$1
 
-mkdir -p $DEST_TEST_DIR
+TARBALL="v${AZHC_VERSION}.tar.gz"
+AZHC_DOWNLOAD_URL=https://github.com/Azure/azurehpc-health-checks/archive/refs/tags/${TARBALL}
+$COMMON_DIR/download_and_verify.sh ${AZHC_DOWNLOAD_URL} ${AZHC_SHA} $DEST_TEST_DIR
 
 pushd $DEST_TEST_DIR
-
-git clone https://github.com/Azure/azurehpc-health-checks.git --branch $AZHC_VERSION
-
+mkdir azurehpc-health-checks && tar -xvf $TARBALL --strip-components=1 -C azurehpc-health-checks  
 pushd azurehpc-health-checks
-
-# install NHC
-./install-nhc.sh
-
+rm ./triggerGHR/triggerGHR.sh
+cp ${GHR_SOURCE_DIR}/trigger_aznhc_GHR.sh ./triggerGHR/triggerGHR.sh
+dos2unix ./triggerGHR/config/*
+chmod +x ./triggerGHR/triggerGHR.sh
+chmod +x ./dockerfile/pull-image-mcr.sh
+# Pull down docker container from MCR
+if [ "${GPU_PLAT}" = "AMD" ]; then
+   ./dockerfile/pull-image-mcr.sh rocm
+else
+   ./dockerfile/pull-image-mcr.sh cuda
+fi
 popd
 popd
 
