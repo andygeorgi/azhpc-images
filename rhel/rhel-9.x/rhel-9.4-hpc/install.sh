@@ -12,13 +12,13 @@ source ./set_properties.sh
 #./install_lustre_client.sh "9"
 
 # update cmake
-$COMMON_DIR/install_cmake.sh
+$RHEL_COMMON_DIR/install_cmake.sh
 
 # install compilers
-#./install_gcc.sh
+./install_gcc.sh
 
-# install mellanox ofed
-#./install_doca.sh
+# install nvidia DOCA
+./install_doca.sh
 
 # install mpi libraries
 #./install_mpis.sh

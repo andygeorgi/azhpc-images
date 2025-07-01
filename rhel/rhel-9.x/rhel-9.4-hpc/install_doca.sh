@@ -10,7 +10,7 @@ SHA256="0c2502e014b840410889441b24e163d631130a883cda93faef8bb4e83300c476"
 echo "Download URL: $DOCA_DOWNLOAD_URL"
 echo "Target folder: $DOCA_FOLDER"
 
-$COMMON_DIR/download_and_verify.sh $MLNX_OFED_DOWNLOAD_URL $SHA256
+$COMMON_DIR/download_and_verify.sh $DOCA_DOWNLOAD_URL $SHA256
 
 rpm -i $RPM_NAME
 dnf clean all
