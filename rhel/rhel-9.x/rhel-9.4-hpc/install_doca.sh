@@ -12,9 +12,6 @@ echo "Target folder: $DOCA_FOLDER"
 
 $COMMON_DIR/download_and_verify.sh $MLNX_OFED_DOWNLOAD_URL $SHA256
 
-# Install kernel utils
-dnf install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r)
-
 rpm -i $RPM_NAME
 dnf clean all
 

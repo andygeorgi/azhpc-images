@@ -55,12 +55,14 @@ sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
 
 # Install azcopy tool 
 # To copy blobs or files to or from a storage account.
-VERSION="10.17.0"
-RELEASE_TAG="release20230123"
+VERSION="10.28.1"
+RELEASE_TAG="10.28.1-20250326"
+SHA256="0f637fd5cf8f5a041592bd2104234682cc0bc7a893298a5641b87d4bef96bc6d"
 TARBALL="azcopy_linux_amd64_${VERSION}.tar.gz"
-AZCOPY_DOWNLOAD_URL="https://azcopyvnext.azureedge.net/${RELEASE_TAG}/${TARBALL}"
+AZCOPY_DOWNLOAD_URL="https://azcopyvnext-awgzd8g7aagqhzhe.b02.azurefd.net/releases/release-${RELEASE_TAG}/${TARBALL}"
 AZCOPY_FOLDER=$(basename ${AZCOPY_DOWNLOAD_URL} .tgz)
-wget ${AZCOPY_DOWNLOAD_URL}
+
+${COMMON_DIR}/download_and_verify.sh ${AZCOPY_DOWNLOAD_URL} ${SHA256}
 tar -xvf ${TARBALL}
 
 # copy the azcopy to the bin path
