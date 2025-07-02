@@ -9,7 +9,7 @@ source ./set_properties.sh
 
 # Install Lustre client
 # No kernel support yet
-#./install_lustre_client.sh "9"
+./install_lustre_client.sh
 
 # update cmake
 $RHEL_COMMON_DIR/install_cmake.sh
@@ -20,8 +20,11 @@ $RHEL_COMMON_DIR/install_cmake.sh
 # install nvidia DOCA
 ./install_doca.sh
 
+# install PMIX
+./install_pmix.sh
+
 # install mpi libraries
-#./install_mpis.sh
+./install_mpis.sh
 
 # install nvidia gpu driver
 #./install_nvidiagpudriver.sh
