@@ -39,11 +39,15 @@ yum install -y numactl \
     kernel-rpm-macros \
     tcsh \
     gcc-gfortran \
-    perl
+    perl \
+    keyutils-libs-devel \
+    libmount-devel \
+    libyaml-devel
 
 
 # Enable EPEL repo for 3rd party packages and install pssh, dkms, subunit and jq
-yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+yum install -y epel-release
+#yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 yum install -y pssh dkms subunit subunit-devel jq
 
 ## Disable kernel updates
