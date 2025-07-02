@@ -47,11 +47,11 @@ yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarc
 yum install -y pssh dkms subunit subunit-devel jq
 
 ## Disable kernel updates
-echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
+#echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
 
 # Disable dependencies on kernel core
-sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
-sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
+#sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
+#sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
 
 # Install azcopy tool 
 # To copy blobs or files to or from a storage account.
