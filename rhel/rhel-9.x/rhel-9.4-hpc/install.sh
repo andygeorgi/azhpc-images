@@ -30,10 +30,10 @@ $RHEL_COMMON_DIR/install_cmake.sh
 #./install_nvidiagpudriver.sh
 
 # install AMD tuned libraries
-#./install_amd_libs.sh
+$COMMON_DIR/install_amd_libs.sh
 
 # install Intel libraries
-#./install_intel_libs.sh
+$COMMON_DIR/install_intel_libs.sh
 
 # cleanup downloaded tarballs - clear some space
 rm -rf *.tgz *.bz2 *.tbz *.tar.gz *.run *.deb *_offline.sh *.repo
